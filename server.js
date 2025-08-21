@@ -6,8 +6,18 @@ require("dotenv").config();
 
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "http://selbyambersourcing.com", // replace with your Bluehost URL
+  methods: ["GET", "POST"],
+  credentials: true
+}));
+
 app.use(express.json());
+
+// Root route to test server
+app.get("/", (req, res) => {
+  res.send("Backend is running 🚀");
+});
 
 // Configure Multer for file uploads
 const storage = multer.memoryStorage();
@@ -18,7 +28,7 @@ app.post("/send-email", upload.fields([
   { name: "passportCopy" },
   { name: "drivingLicense" }
 ]), async (req, res) => {
-  const { name, surname, email, phone, country , countryB, jobType, message } = req.body;
+  const { name,surname,email,phone,country,countryB,jobType,message } = req.body;
   const passportPhoto = req.files["passportPhoto"]?.[0];
   const passportCopy = req.files["passportCopy"]?.[0];
   const drivingLicense = req.files["drivingLicense"]?.[0];
@@ -37,7 +47,7 @@ app.post("/send-email", upload.fields([
     from: `"${name} ${surname}" <${email}>`,
     to: process.env.EMAIL_USER,
     subject: "Job Document Submission",
-    text: `Name: ${name}\nSurname: ${surname}\nEmail: ${email}\n Phone: ${phone}\n Country : ${country}\n Country : ${countryB}\n Job Type: ${jobType}\n Message : ${message}\n\nPlease find the attached documents.`,
+    text: `Name: ${name}\nSurname: ${surname}\nEmail: ${email}\nPhone: ${phone}\nCountry : ${country}\nCountry : ${countryB}\n Job Type: ${jobType}\n Message : ${message}\n\nPlease find the attached documents.`,
     html: `<p>Name: ${name}</p>
            <p>Surname: ${surname}</p>
            <p>Email: ${email}</p>
