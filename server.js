@@ -6,8 +6,19 @@ require("dotenv").config();
 
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "http://selbyambersourcing.com", // replace with your Bluehost URL
+  methods: ["GET", "POST"],
+  credentials: true
+}));
+
 app.use(express.json());
+
+// Root route to test server
+app.get("/", (req, res) => {
+  res.send("Backend is running 🚀");
+});
+
 
 // Configure Multer for file uploads
 const storage = multer.memoryStorage();
