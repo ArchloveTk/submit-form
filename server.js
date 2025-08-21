@@ -19,10 +19,7 @@ app.get("/", (req, res) => {
   res.send("Backend is running 🚀");
 });
 
-<<<<<<< HEAD
-=======
 
->>>>>>> c39b78e631130f2ef0ff9eae272ab054eabe0b14
 // Configure Multer for file uploads
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
