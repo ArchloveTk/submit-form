@@ -7,7 +7,7 @@ require("dotenv").config();
 
 const app = express();
 app.use(cors({
-  origin: "http://selbyambersourcing.com", // replace with your Bluehost URL
+  origin: "https://selbyambersourcing.com", // replace with your Bluehost URL
   methods: ["GET", "POST"],
   credentials: true
 }));
